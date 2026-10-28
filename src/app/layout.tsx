@@ -6,6 +6,7 @@ import "./globals.css";
 import "./guide.css";
 import "./home.css";
 import "./scan.css";
+import "./kit.css";
 import { Analytics } from "@vercel/analytics/next";
 import Offline from "@/components/Offline";
 import { SITE_URL } from "@/lib/site";

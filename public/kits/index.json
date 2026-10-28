@@ -1,0 +1,5 @@
+[
+  { "file": "filaform-clearbox.json", "name": "CLEARBOX", "brand": "Filaform", "blurb": "An acrylic enclosure for a desktop 3D printer, on an aluminium frame." },
+  { "file": "tallwork-liftline.json", "name": "LIFTLINE", "brand": "Tallwork", "blurb": "An electric standing desk frame with two motor legs and a handset." },
+  { "file": "greenfold-terrace.json", "name": "TERRACE", "brand": "Greenfold", "blurb": "A three tier wooden planter that stands against a wall." }
+]

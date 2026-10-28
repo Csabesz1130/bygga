@@ -21,7 +21,7 @@ export default function CoverPanel({
   onOwnSteps,
 }: {
   plan: Plan;
-  via: "catalog" | "ai" | "guess" | "scan";
+  via: "catalog" | "ai" | "guess" | "scan" | "kit";
   resume: Progress | null;
   /** Finished at least once on this device. */
   built?: { at: number; ms?: number; full?: boolean } | null;
@@ -146,7 +146,15 @@ export default function CoverPanel({
           </>
         )}
 
-        {via === "scan" ? (
+        {via === "kit" ? (
+          <div className="callout note">
+            <IBox size={18} />
+            <div>
+              <b>{s.brand ? `Written by ${s.brand}` : "Written by its maker"}</b>
+              <span>The maker described each part and step, and Bygga drew them. Keep the paper manual close if one came in the box.</span>
+            </div>
+          </div>
+        ) : via === "scan" ? (
           <div className="callout note">
             <ISparkle size={18} />
             <div>
@@ -184,9 +192,14 @@ export default function CoverPanel({
           )
         )}
         <div className="cover-links">
-          {via !== "scan" && (
+          {via !== "scan" && via !== "kit" && (
             <a className="official" href={official} target="_blank" rel="noreferrer">
               Find the manual on ikea.com <IExternal size={15} />
+            </a>
+          )}
+          {s.support && (
+            <a className="official" href={s.support} target="_blank" rel="noreferrer">
+              {s.brand ? `Help from ${s.brand}` : "Maker's help page"} <IExternal size={15} />
             </a>
           )}
           <Link className="official" href={`/build/${s.slug}/print`}>

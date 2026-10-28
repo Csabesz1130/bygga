@@ -1,0 +1,31 @@
+{
+  "kit": 1,
+  "name": "TERRACE",
+  "brand": "Greenfold",
+  "variant": "Vertical planter, three tiers",
+  "category": "Planter",
+  "minutes": 30,
+  "people": 1,
+  "difficulty": 1,
+  "support": "https://example.com/greenfold/terrace",
+  "parts": [
+    { "id": "S1", "label": "A", "name": "Side frame", "size": [30, 1200, 350], "pos": [-385, 600, 0], "material": "wood" },
+    { "id": "S2", "label": "A", "name": "Side frame", "size": [30, 1200, 350], "pos": [385, 600, 0], "material": "wood" },
+    { "id": "T1", "label": "B", "name": "Planter tray", "size": [740, 150, 300], "pos": [0, 200, 0], "material": "wood" },
+    { "id": "T2", "label": "B", "name": "Planter tray", "size": [740, 150, 300], "pos": [0, 600, 0], "material": "wood" },
+    { "id": "T3", "label": "B", "name": "Planter tray", "size": [740, 150, 300], "pos": [0, 1000, 0], "material": "wood" },
+    { "id": "R1", "label": "C", "name": "Back rail", "size": [740, 60, 20], "pos": [0, 1170, -165], "material": "wood" },
+    { "id": "R2", "label": "D", "name": "Front foot rail", "size": [740, 60, 20], "pos": [0, 30, 165], "material": "wood" },
+    { "id": "W", "label": "E", "name": "Wall bracket", "size": [80, 40, 20], "pos": [0, 1170, -185], "material": "metal" }
+  ],
+  "steps": [
+    { "title": "Tap the dowels into one side frame", "detail": "Lay it flat, holes facing up.", "add": ["S1"], "fix": [{ "kind": "dowel", "count": 10, "to": ["S1"] }], "tools": ["hammer"], "pose": "+y", "warnings": ["floor"] },
+    { "title": "Fit the three trays", "detail": "Drain holes at the bottom. Each tray presses onto its dowels.", "add": ["T1", "T2", "T3"], "fix": [{ "kind": "screw", "count": 6, "len": 40, "to": ["S1"] }], "tools": ["screwdriver"], "pose": "+y" },
+    { "title": "Fit the back and foot rails", "add": ["R1", "R2"], "fix": [{ "kind": "screw", "count": 2, "len": 40, "to": ["S1"] }], "tools": ["screwdriver"], "pose": "+y" },
+    { "title": "Add the other side frame", "detail": "Dowels in first, then screw it to every tray and rail.", "add": ["S2"], "fix": [{ "kind": "dowel", "count": 10 }, { "kind": "screw", "count": 8, "len": 40, "to": ["S2"] }], "tools": ["hammer", "screwdriver"], "pose": "+y", "warnings": ["square"] },
+    { "title": "Fix the planter to the wall", "detail": "Stand it where it will go. Screw the bracket to the back rail, then to the wall with fixings that suit your wall.", "add": ["W"], "fix": [{ "kind": "bracket", "count": 1, "to": ["R1"] }, { "kind": "screw", "count": 2, "len": 16, "to": ["R1"] }], "tools": ["drill", "level", "pencil"], "pose": "+y", "warnings": ["wall", "tip"] },
+    { "title": "Line the trays and fill", "detail": "Lay the felt liners in, then soil up to two fingers below the rim.", "pose": "+y" }
+  ],
+  "tips": { "anchor": "Wet soil is heavy: a full planter weighs about 60 kg, so always use the wall bracket." },
+  "watchOut": ["Oil the wood once a year if it stands outside."]
+}

@@ -1,5 +1,6 @@
 import type { ProductSpec } from "../types";
 import { parseScan } from "./parse";
+import { kitExtras } from "../kit/extras";
 
 /** Pack a scanned guide into a link, so it opens on another device without a server copy. */
 export async function encodeSpec(spec: ProductSpec): Promise<string> {
@@ -21,7 +22,7 @@ export async function decodeSpec(s: string): Promise<ProductSpec | null> {
     if (!raw || raw.archetype !== "custom" || !raw.custom?.parts?.length) return null;
     // a link is someone else's data: run it through the same checks as a fresh scan
     const r = parseScan({ ...raw, parts: raw.custom.parts, steps: raw.custom.steps, fromCover: raw.custom.fromCover });
-    return r.spec ? { ...r.spec, variant: raw.variant ?? r.spec.variant } : null;
+    return r.spec ? { ...r.spec, variant: raw.variant ?? r.spec.variant, ...kitExtras(raw) } : null;
   } catch {
     return null;
   }

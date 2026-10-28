@@ -7,6 +7,7 @@ type Props = { params: Promise<{ slug: string }>; searchParams: Promise<Record<s
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  if (slug.startsWith("kit-")) return { title: "Kit guide | Bygga", robots: { index: false } };
   if (slug.startsWith("scan-")) return { title: "Scanned guide | Bygga", robots: { index: false } };
   const s = catalogSpec(decodeURIComponent(slug));
   const name = s ? `${s.name} ${s.variant.toLowerCase()}` : decodeURIComponent(slug).replace(/-/g, " ").toUpperCase();

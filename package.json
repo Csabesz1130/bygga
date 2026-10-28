@@ -15,7 +15,8 @@
     "ikea:measure": "node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/ikea/measure.ts",
     "ikea:build": "node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/ikea/build.ts",
     "ikea:check": "node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/ikea/check.ts",
-    "families": "node scripts/families.mjs"
+    "families": "node scripts/families.mjs",
+    "kit:check": "node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/kit/check.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",

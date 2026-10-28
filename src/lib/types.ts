@@ -250,6 +250,7 @@ export interface ProductSpec {
   sofa?: Partial<SofaParams>;
   custom?: CustomParams;
   brand?: string;
+  support?: string; // https link to the maker's own help page (kits)
   tips?: Partial<Record<TipKey, string>>;
   watchOut?: string[];
   source: "catalog" | "ai" | "guess" | "scan";
