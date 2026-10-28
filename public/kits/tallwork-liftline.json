@@ -1,0 +1,36 @@
+{
+  "kit": 1,
+  "name": "LIFTLINE",
+  "brand": "Tallwork",
+  "variant": "Electric standing desk, 140x70 cm",
+  "category": "Standing desk",
+  "minutes": 50,
+  "people": 2,
+  "difficulty": 2,
+  "support": "https://example.com/tallwork/help/liftline",
+  "parts": [
+    { "id": "TOP", "label": "1", "name": "Desktop", "size": [1400, 25, 700], "pos": [0, 722.5, 0], "material": "wood" },
+    { "id": "BR1", "label": "2", "name": "Top bracket", "size": [60, 30, 600], "pos": [-600, 695, 0], "material": "metal" },
+    { "id": "BR2", "label": "2", "name": "Top bracket", "size": [60, 30, 600], "pos": [600, 695, 0], "material": "metal" },
+    { "id": "X", "label": "3", "name": "Crossbar", "size": [1130, 50, 50], "pos": [0, 655, 0], "material": "metal" },
+    { "id": "L1", "label": "4", "name": "Motor leg", "size": [70, 640, 70], "pos": [-600, 360, 0], "material": "metal" },
+    { "id": "L2", "label": "4", "name": "Motor leg", "size": [70, 640, 70], "pos": [600, 360, 0], "material": "metal" },
+    { "id": "F1", "label": "5", "name": "Foot", "size": [80, 40, 700], "pos": [-600, 20, 0], "material": "metal" },
+    { "id": "F2", "label": "5", "name": "Foot", "size": [80, 40, 700], "pos": [600, 20, 0], "material": "metal" },
+    { "id": "CB", "label": "6", "name": "Control box", "size": [200, 30, 80], "pos": [250, 695, -150], "material": "metal" },
+    { "id": "H", "label": "7", "name": "Handset", "size": [120, 25, 60], "pos": [450, 697.5, 300], "material": "soft" }
+  ],
+  "steps": [
+    { "title": "Lay the desktop face down", "detail": "On a rug or the box lid, so the top doesn't scratch.", "add": ["TOP"], "pose": "-y", "warnings": ["floor", "face"] },
+    { "title": "Screw on the top brackets", "detail": "One near each end, lined up with the pre-drilled holes.", "add": ["BR1", "BR2"], "fix": [{ "kind": "screw", "count": 8, "len": 16, "to": ["TOP"] }], "tools": ["screwdriver"], "pose": "-y" },
+    { "title": "Bolt the crossbar between the brackets", "detail": "Leave the bolts a turn loose for now.", "add": ["X"], "fix": [{ "kind": "bolt", "count": 4, "len": 12, "to": ["BR1", "BR2"] }], "tools": ["allen"], "pose": "-y", "warnings": ["loose"] },
+    { "title": "Fit the motor legs", "detail": "Motor cables point to the middle. Now tighten the crossbar bolts too.", "add": ["L1", "L2"], "fix": [{ "kind": "bolt", "count": 8, "len": 12, "to": ["BR1", "BR2"] }], "tools": ["allen"], "pose": "-y" },
+    { "title": "Bolt on the feet", "detail": "The long ends of the feet face the front edge of the desktop.", "add": ["F1", "F2"], "fix": [{ "kind": "bolt", "count": 8, "len": 16, "to": ["L1", "L2"] }, { "kind": "glide", "count": 4, "to": ["F1", "F2"] }], "tools": ["allen"], "pose": "-y" },
+    { "title": "Screw the control box under the top", "detail": "Plug both leg cables into it, M1 left and M2 right.", "add": ["CB"], "fix": [{ "kind": "screw", "count": 4, "len": 16, "to": ["TOP"] }], "tools": ["screwdriver"], "pose": "-y" },
+    { "title": "Screw on the handset", "detail": "Under the front edge on the right, buttons facing you, then plug it into the control box.", "add": ["H"], "fix": [{ "kind": "screw", "count": 2, "len": 16, "to": ["TOP"] }], "tools": ["screwdriver"], "pose": "-y" },
+    { "title": "Turn the desk upright", "detail": "Lift it together from the long sides, never by the legs alone.", "people": 2, "pose": "+y", "warnings": ["two"] },
+    { "title": "Reset the height", "detail": "Plug in, then hold the down button until the desk stops and beeps. It now knows its lowest point.", "pose": "+y" }
+  ],
+  "tips": { "legs": "Keep the leg cables free of the crossbar so they don't get pinched when the desk moves." },
+  "watchOut": ["Check nothing is under or above the desk before you press up or down."]
+}

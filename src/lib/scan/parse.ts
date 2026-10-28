@@ -106,7 +106,7 @@ const TOOL_WORDS: [RegExp, ToolId][] = [
   [/pencil|marker/, "pencil"],
   [/knife|cutter|scissors/, "knife"],
 ];
-function tool(raw: string): ToolId | null {
+export function tool(raw: string): ToolId | null {
   const s = raw.toLowerCase();
   for (const [re, t] of TOOL_WORDS) if (re.test(s)) return t;
   return null;
@@ -120,7 +120,7 @@ const POSES: [RegExp, Pose][] = [
   [/right[ _]?side|on (its|the) right|on (its|the) side|^-x$/, "-x"],
   [/upright|standing|^\+y$|normal/, "+y"],
 ];
-function pose(raw?: string): Pose | undefined {
+export function pose(raw?: string): Pose | undefined {
   if (!raw) return undefined;
   const s = raw.toLowerCase().replace(/\s+/g, " ").trim();
   for (const [re, p] of POSES) if (re.test(s)) return p;
@@ -137,7 +137,7 @@ const WARN_WORDS: [RegExp, WarnId][] = [
   [/square|diagonal/, "square"],
   [/face|finished side|direction|orientation/, "face"],
 ];
-function warn(raw: string): WarnId | null {
+export function warn(raw: string): WarnId | null {
   const s = raw.toLowerCase();
   for (const [re, w] of WARN_WORDS) if (re.test(s)) return w;
   return null;

@@ -39,13 +39,15 @@ import { decodeSpec } from "@/lib/scan/share";
 import { track } from "@vercel/analytics";
 import { SCAN_ENABLED } from "@/lib/site";
 
-type Via = "catalog" | "ai" | "guess" | "scan";
+type Via = "catalog" | "ai" | "guess" | "scan" | "kit";
 
 export default function GuideApp({ slug, query, step, kind }: { slug: string; query?: string; step?: number; kind?: string }) {
   const router = useRouter();
   const mounted = useMounted();
   const picked = KIND_LABELS.some((k) => k.kind === kind) ? (kind as Kind) : null;
-  const isScan = slug.startsWith("scan-");
+  // scanned and kit guides carry their own data in the link: never looked up in the catalog
+  const isKit = slug.startsWith("kit-");
+  const isScan = isKit || slug.startsWith("scan-");
   const q = query || slug.replace(/-/g, " ");
   const initial = useMemo(() => (isScan ? null : (catalogSpec(slug) ?? (picked ? { ...specForKind(picked, q.split(" ")[0] || q), slug } : null))), [isScan, slug, picked, q]);
   // asked again after a key was added: a typical build gives way to one worked out for this product
@@ -55,8 +57,10 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
   const match = useMemo(() => (initial || isScan ? null : matchCatalog(q)), [initial, isScan, q]);
   const local = stored ? null : match;
   const [imported, setImported] = useState<{ slug: string; spec: ProductSpec | null } | null>(null);
-  const cached = stored ?? (imported?.slug === slug ? imported.spec : null);
   const hash = useMemo(() => (mounted && isScan && location.hash.startsWith("#g=") ? location.hash.slice(3) : ""), [mounted, isScan]);
+  // a link's own data wins over an older copy saved under the same name (a kit keeps its address across versions)
+  const fromLink = imported?.slug === slug ? imported.spec : null;
+  const cached = hash ? (fromLink ?? (imported?.slug === slug ? stored : null)) : (stored ?? fromLink);
 
   // a scanned guide shared as a link carries its own data
   useEffect(() => {
@@ -87,7 +91,8 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
   };
   const result = fetched?.slug === slug ? fetched : null;
   const spec = initial ?? cached ?? result?.spec ?? null;
-  const via: Via = initial ? (initial.source === "guess" ? "guess" : "catalog") : cached ? cached.source : (result?.via ?? "ai");
+  // a kit is written by the product's maker, not read from a manual by the model
+  const via: Via = initial ? (initial.source === "guess" ? "guess" : "catalog") : cached ? (isKit ? "kit" : cached.source) : (result?.via ?? "ai");
   const scanGone = isScan && mounted && !cached && (!hash || (imported?.slug === slug && !imported.spec));
   const status = spec ? "ready" : scanGone ? "scangone" : result ? (result.error ? "error" : "notfound") : "loading";
   const suggestions = result?.suggestions ?? [];
@@ -150,6 +155,19 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
     </AnimatePresence>
   );
 
+  if (status === "scangone" && isKit)
+    return (
+      <Shell title="Kit guide">
+        <div className="notfound">
+          <Figure pose="think" bubble="?" size={120} />
+          <h1>This kit link is incomplete</h1>
+          <p className="sub">A kit guide carries all its steps in the link. Ask the maker for the full link, or open the kit file again.</p>
+          <Link href="/kit" className="btn primary">
+            Open a kit
+          </Link>
+        </div>
+      </Shell>
+    );
   if (status === "scangone")
     return (
       <Shell title="Scanned guide">
@@ -165,7 +183,7 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
     );
   if (status === "loading")
     return (
-      <Shell title={isScan ? "Scanned guide" : q.toUpperCase()}>
+      <Shell title={isKit ? "Kit guide" : isScan ? "Scanned guide" : q.toUpperCase()}>
         <Loader query={isScan ? "your guide" : q} ai={ai} />
       </Shell>
     );

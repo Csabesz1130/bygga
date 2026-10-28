@@ -25,6 +25,7 @@ export default function SiteFooter() {
             <h2>Build</h2>
             <Link href="/browse">All guides</Link>
             <Link href="/builds">Workshop</Link>
+            <Link href="/kit">For makers</Link>
             {SCAN_ENABLED && <Link href="/scan">Scan a manual</Link>}
           </div>
           <div>
